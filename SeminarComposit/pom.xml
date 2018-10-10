@@ -2,19 +2,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
+    <parent>
+        <artifactId>jma5071_WS18_AD_ALL</artifactId>
+        <groupId>jma5071_WS18_AD</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>jma5071_WS18_AD_ALL</artifactId>
+    <artifactId>SeminarComposit</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>jma5071_WS18_AD_UE01</module>
-        <module>jma5071_WS18_AD_UE02</module>
-        <module>jma5071_WS18_AD_UE03</module>
-        <module>SeminarComposit</module>
+        <module>03_10_18 - Parking Spot Reservation System</module>
     </modules>
-    <groupId>jma5071_WS18_AD</groupId>
-    <version>1.0-SNAPSHOT</version>
 
 
 </project>
