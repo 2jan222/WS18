@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>03_10_18 - Parking Spot Reservation System</module>
+        <module>10_10_18 - Sorting Algorithms</module>
     </modules>
 
 
