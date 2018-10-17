@@ -7,7 +7,7 @@ import java.util.Random;
  */
 public class FindCharImplementations {
     /**
-     * O(n), Ω(n), θ(n)
+     * O(n), Ω(1), θ(1 bzw. Alphabet/2 -> Alphabet)
      * @param str input string
      * @param ch char to search for
      * @return first index, if not found -1
@@ -22,7 +22,7 @@ public class FindCharImplementations {
     }
 
     /**
-     * O(n), Ω(n), θ(n)
+     * O(n), Ω(1), θ(n)
      * @param str input string
      * @param ch char to search for
      * @return first index, if not found -1
@@ -37,7 +37,7 @@ public class FindCharImplementations {
     }
 
     /**
-     * O(n), Ω(1)
+     * O(n), Ω(1), θ(K) K = |Alphabet|
      * @param str input string
      * @param ch char to search for
      * @return first index, if not found -1

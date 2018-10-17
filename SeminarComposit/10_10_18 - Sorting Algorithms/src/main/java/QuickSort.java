@@ -1,4 +1,5 @@
 import java.util.Comparator;
+import java.util.HashSet;
 
 /**
  * @author Janik Mayr on 10.10.2018
@@ -49,6 +50,7 @@ public class QuickSort implements SortingAlgorithm {
             }
         }
         return left;
+
     }
 
     public static Object[] qSort(Object[] array, int left, int right, Comparator comp){
