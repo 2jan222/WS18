@@ -1,5 +1,6 @@
+package task1;
+
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.function.Function;
 
 /**
@@ -21,11 +22,11 @@ public class RedBlackNode<T> {
                 if (parent.right == n1) {
                     return parent.left;
                 } else {
-                    throw new RuntimeException("RedBlackNode is not a child of its parent");
+                    throw new RuntimeException("task1.RedBlackNode is not a child of its parent");
                 }
             }
         } else {
-            throw new RuntimeException("RedBlackNode has no parent. Is Root");
+            throw new RuntimeException("task1.RedBlackNode has no parent. Is Root");
         }
     };
 

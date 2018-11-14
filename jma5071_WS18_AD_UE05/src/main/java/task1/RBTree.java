@@ -1,7 +1,7 @@
+package task1;
+
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.Comparator;
-import java.util.LinkedList;
 
 /**
  * @author Janik Mayr on 07.11.2018
@@ -200,7 +200,7 @@ public class RBTree<T> {
             node.right.numLeft = 2 + node.left.numLeft + node.left.numRight;
 
         }
-        // Case 4: node.left and node.right.left both exist in addtion to Case 1
+        // Case 4: node.left and node.right.left both exist in addition to Case 1
         else{
             node.numRight = 1 + node.right.left.numLeft +
                     node.right.left.numRight;
