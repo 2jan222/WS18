@@ -17,7 +17,7 @@ public class HeapNode<E> {
     }
 
     public HeapNode<E> insert(E key, Comparator<E> comparator) {
-        rH++; //Increment right height on each layer
+        /*rH++; //Increment right height on each layer
         if(r == null) { //Right space is free
             HeapNode<E> insertNode = new HeapNode<>(key);
             r = insertNode;
@@ -47,6 +47,65 @@ public class HeapNode<E> {
                 heightBasedSwitch();
                 return this;
             }
+        }*/
+        return insert(new HeapNode<E>(key),comparator);
+    }
+
+    private HeapNode<E> insert(HeapNode<E> node, Comparator<E> comparator) {
+        rH++;
+        if (r != null) {
+            if (comparator.compare(node.getKey(),key) < 0) {
+                //Swap return child
+                HeapNode<E> t = node.l;
+                node.l = l;
+                l = t;
+                t = node.r;
+                node.r = r;
+                r = t;
+                int temp = node.rH;
+                node.rH = rH;
+                rH = temp;
+                temp = node.lH;
+                node.lH = lH;
+                lH = temp;
+                node.r = node.insert(this,comparator);
+                if (rH > lH) {
+                    t = node.r;
+                    node.r = node.l;
+                    node.l = t;
+                    temp = node.rH;
+                    node.rH = lH;
+                    node.lH = temp;
+                } else {
+                    r = node;
+                }
+                return node;
+            } else {
+                //Return this
+                r = insert(node, comparator);
+                if (rH > lH) {
+                    HeapNode<E> t = r;
+                    r = l;
+                    l = t;
+                    int temp = rH;
+                    rH = lH;
+                    lH = temp;
+                } else {
+                    r = node;
+                }
+                return this;
+            }
+        } else { //R is empty -> with height restructure
+            if (rH > lH) {
+                r = l;
+                l = node;
+                int temp = rH;
+                rH = lH;
+                lH = temp;
+            } else {
+                r = node;
+            }
+            return this;
         }
     }
 

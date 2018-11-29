@@ -23,7 +23,7 @@ class UE05Tester {
     @Test
     @DisplayName("HBLT Heap Test")
     public void testHeap(){
-        HeapHBLTp<Integer> integerHeapHBLT = new HeapHBLTp<>(Integer::compareTo);
+        HeapHBLT<Integer> integerHeapHBLT = new HeapHBLT<>(Integer::compareTo);
         integerHeapHBLT.insert(3);
         integerHeapHBLT.insert(4);
         ///*
