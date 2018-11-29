@@ -15,6 +15,7 @@
         <module>jma5071_WS18_AD_UE04</module>
         <module>jma5071_WS18_AD_UE05</module>
         <module>jma5071_WS18_DB_INCLASS</module>
+        <module>jma5071_WS18_AD_UE06</module>
     </modules>
     <groupId>jma5071_WS18_AD</groupId>
     <version>1.0-SNAPSHOT</version>
