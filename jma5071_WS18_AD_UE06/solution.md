@@ -22,7 +22,7 @@ Digits = "1"|"2"|"3"|"4"|"5"|"6"|"7"|"8"|"9";
 ```
 ## Parser
 ![StateDiagram](./statediagram.jpeg "State diagram for parser")
-Steps: 
+<br>Steps: 
 - Merge Number Creation in one step -> delete leading zero
 - Combine repetitive progressions from diagram in one.
 - State Design Pattern
