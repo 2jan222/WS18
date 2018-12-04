@@ -1,132 +1,148 @@
 package parser;
 
-import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- * @author Janik Mayr on 01.12.2018
+ * @author Janik Mayr on 04.12.2018
  */
 public class GraphBuilderParser {
-    private String workingString;
-    private int position;
-    public void parseGraphFromFile(File input) {
-        //TODO read file and turn into string parser method;
-    }
+    @SuppressWarnings("Duplicates")
+    public GraphParseResult parse(List<Token> tokens) {
+        LinkedList<Token> tokenList = (LinkedList<Token>) tokens;
+        GraphParseResult graphParseResult = new GraphParseResult();
 
-    public GraphParseResult parseGraphFromString(final String input) {
-        workingString = input;
-        position = 0;
-        List<ParsedVertex> vertices = vertices();
-        List<ParsedEdge> parsedEdges = edges();
-        if (!expect(';')) {
-            throw new SyntaxException("Finishing semicolon missing");
-        }
-        return new GraphParseResult(vertices, parsedEdges);
-    }
+        Token t = tokenList.removeFirst();
+        if (t.getType() == TokenType.VERTEX_IDENTIFIER) {
+            t = tokenList.removeFirst();
+            if (t.getType() == TokenType.EQUALITY_SIGN) {
+                t = tokenList.removeFirst();
+                if (t.getType() == TokenType.OPEN_CURLY) {
+                    t = tokenList.removeFirst();
+                    if (t.getType() == TokenType.NUMBER) {
+                        graphParseResult.getVertices().add(new ParsedVertex(Integer.parseInt(t.getText())));
+                        t = tokenList.removeFirst();
+                        while (t.getType() == TokenType.COMMA) {
+                            t = tokenList.peekFirst();          //TODO Wirklich gebraucht ? Fehlschlagender Peek -> Error
+                            if (t.getType() == TokenType.NUMBER) {
+                                t = tokenList.removeFirst();
+                                graphParseResult.getVertices().add(new ParsedVertex(Integer.parseInt(t.getText())));
+                            }
+                        }
+                        t = tokenList.removeFirst();
+                        if (t.getType() == TokenType.CLOSE_CURLY) {
+                            t = tokenList.removeFirst();
+                            if (t.getType() == TokenType.SEMICOLON) {
+                                t = tokenList.removeFirst();
+                                if (t.getType() == TokenType.EDGE_IDENTIFIER) {
+                                    t = tokenList.removeFirst();
+                                    if (t.getType() == TokenType.EQUALITY_SIGN) {
+                                        t = tokenList.removeFirst();
+                                        if (t.getType() == TokenType.OPEN_CURLY) {
+                                            t = tokenList.removeFirst();    //Start, End, Weight {, Start, End, Weight}
+                                            int start, end, weight;
+                                            if (t.getType() == TokenType.OPEN_CURLY || t.getType() == TokenType.OPEN_BRACKET) {
+                                                TokenType tupleClose = (t.getType() == TokenType.OPEN_CURLY) ? TokenType.CLOSE_CURLY:TokenType.CLOSE_BRACKET;
+                                                t = tokenList.removeFirst();
+                                                if (t.getType() == TokenType.NUMBER) {  //START
+                                                    start = Integer.parseInt(t.getText());
+                                                    t = tokenList.removeFirst();
+                                                    if (t.getType() == TokenType.COMMA) {
+                                                        t = tokenList.removeFirst();
+                                                        if (t.getType() == TokenType.NUMBER) { //END
+                                                            end = Integer.parseInt(t.getText());
+                                                            t = tokenList.removeFirst();
+                                                            if (t.getType() == TokenType.COMMA) {
+                                                                t = tokenList.removeFirst();
+                                                                int minus = 1;
+                                                                if (t.getType() == TokenType.MINUS) {   //Minus is optional
+                                                                    minus = -1;
+                                                                    t = tokenList.removeFirst();
+                                                                }
+                                                                if (t.getType() == TokenType.NUMBER) { //WEIGHT
+                                                                    weight = minus * Integer.parseInt(t.getText());
+                                                                    t = tokenList.removeFirst();
+                                                                    if (t.getType() == tupleClose) {
+                                                                        graphParseResult.getParsedEdges().add(new ParsedEdge(start, end, weight));
+                                                                        if (tupleClose == TokenType.CLOSE_CURLY) {
+                                                                            graphParseResult.getParsedEdges().add(new ParsedEdge(end, start, weight));
+                                                                        }
+                                                                        t = tokenList.removeFirst();
 
-    private char nextChar() {
-        position++;
-        if (workingString.length() == position) throw new SyntaxException("End of input reached");
-        else return workingString.charAt(position);
-    }
+                                                                        while (t.getType() == TokenType.COMMA) {
+                                                                            t = tokenList.removeFirst();
+                                                                            if (t.getType() == TokenType.OPEN_CURLY || t.getType() == TokenType.OPEN_BRACKET) {
+                                                                                tupleClose = (t.getType() == TokenType.OPEN_CURLY) ? TokenType.CLOSE_CURLY:TokenType.CLOSE_BRACKET;
+                                                                                t = tokenList.removeFirst();
+                                                                                if (t.getType() == TokenType.NUMBER) {  //START
+                                                                                    start = Integer.parseInt(t.getText());
+                                                                                    t = tokenList.removeFirst();
+                                                                                    if (t.getType() == TokenType.COMMA) {
+                                                                                        t = tokenList.removeFirst();
+                                                                                        if (t.getType() == TokenType.NUMBER) { //END
+                                                                                            end = Integer.parseInt(t.getText());
+                                                                                            t = tokenList.removeFirst();
+                                                                                            if (t.getType() == TokenType.COMMA) {
+                                                                                                t = tokenList.removeFirst();
+                                                                                                minus = 1;
+                                                                                                if (t.getType() == TokenType.MINUS) {   //Minus is optional
+                                                                                                    minus = -1;
+                                                                                                    t = tokenList.removeFirst();
+                                                                                                }
+                                                                                                if (t.getType() == TokenType.NUMBER) { //WEIGHT
+                                                                                                    weight = minus * Integer.parseInt(t.getText());
+                                                                                                    t = tokenList.removeFirst();
+                                                                                                    if (t.getType() == tupleClose) {
+                                                                                                        graphParseResult.getParsedEdges().add(new ParsedEdge(start, end, weight));
+                                                                                                        if (tupleClose == TokenType.CLOSE_CURLY) {
+                                                                                                            graphParseResult.getParsedEdges().add(new ParsedEdge(end, start, weight));
+                                                                                                        }
+                                                                                                        t = tokenList.removeFirst();
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
 
-    /**
-     * Checks if current char is the expected char.
-     * @param ch expected char
-     * @return true, if current and expected are the same
-     */
-    private boolean expect(char ch) {
-        return (getCurrentChar() == ch);
-    }
+                                                                        if (t.getType() == TokenType.CLOSE_CURLY) {
+                                                                            t = tokenList.removeFirst();
+                                                                            if (t.getType() == TokenType.SEMICOLON) {
+                                                                                t = tokenList.removeFirst();
+                                                                                if (t.getType() == TokenType.SEMICOLON) {
+                                                                                    return graphParseResult;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            } else {
+                                                if (t.getType() == TokenType.CLOSE_CURLY) {
+                                                    t = tokenList.removeFirst();
+                                                    if (t.getType() == TokenType.SEMICOLON) {
+                                                        t = tokenList.removeFirst();
+                                                        if (t.getType() == TokenType.SEMICOLON) {
+                                                            return graphParseResult;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
 
-    private List<ParsedVertex> vertices() {
-        LinkedList<ParsedVertex> vertices = new LinkedList<>();
-        expectSequence("V={");
-        //TODO Get Vertices
-        expectSequence("};");
-        return vertices;
-    }
-
-    private List<ParsedEdge> edges() {
-        LinkedList<ParsedEdge> parsedEdges = new LinkedList<>();
-        expectSequence("E={");
-        //TODO Get Edges
-        expectSequence("};");
-        return parsedEdges;
-    }
-
-    private ParsedEdge[] edge(){
-        boolean directed = false;
-        ParsedEdge[] rValue;
-
-        if (expect('(')) {
-            directed = true;
-        } else {
-            if (!expect('{')) {
-                throw new SyntaxException("Node definition started with unexpected character");
+                            }
+                        }
+                    }
+                }
             }
         }
-
-
-        //TODO Get Start
-        int start = 0;
-        //TODO Get End
-        int end = 0;
-        //TODO Get Weight
-        int weight = 0;
-
-        if (directed) {
-            if (expect(')')) {
-                rValue = new ParsedEdge[]{new ParsedEdge(start, end, weight)};
-            } else {
-                throw new SyntaxException("Node definition ended with unexpected character or wrong closing parenthesis. Expected: ) Actual:" + getCurrentChar());
-            }
-        } else {
-            if (expect('}')) {
-                rValue = new ParsedEdge[]{new ParsedEdge(start, end, weight), new ParsedEdge(end, start, weight)};
-            } else {
-                throw new SyntaxException("Node definition ended with unexpected character or wrong closing parenthesis. Expected: } Actual:" + getCurrentChar());
-            }
-        }
-        //End Close Edge
-        return rValue;
-    }
-
-    private ParsedVertex node() {
-        return null; //TODO retrieve number and return
-    }
-
-    private int extractNumber() {
-        int start = position;
-        if (isDigit(getCurrentChar())) {
-            char c = nextChar();
-            while (isDigitWithZero(c)) {
-                c = nextChar();
-            }
-        }
-        return Integer.parseInt(workingString, start, position, 10);
-    }
-
-    private void expectSequence(final String sequence) {
-        for (Character ch: sequence.toCharArray()) {
-            if (!expect(ch)){
-                throw new SyntaxException("Unexpected character. Details: [Expected]=" + ch + "|| [Actual]=" + getCurrentChar());
-            }
-            nextChar();
-        }
-    }
-
-    private char getCurrentChar() {
-        if (workingString.length() == position) throw new SyntaxException("End of input reached");
-        return workingString.charAt(position);
-    }
-
-    private boolean isDigitWithZero(final char c) {
-        return (c == '0') || isDigit(c);
-    }
-
-    private boolean isDigit(final char c) {
-        return (c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9');
+        throw new SyntaxException("Wrong Token. Passed Token:" + t.toString());
     }
 }

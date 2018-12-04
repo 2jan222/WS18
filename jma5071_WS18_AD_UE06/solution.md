@@ -1,7 +1,7 @@
 
 # Task 1 - Creation of a graph
 ## Description
-Create a graph from a text file/format.
+Create a graph from a text file or String.
 <br>The graph's representation must be "hidden" form the graph class.  
 <br>Representation as AdjacencyStructure an abstract class, Subtypes are:
 - AdjacencyList
@@ -23,10 +23,10 @@ Digits = "1"|"2"|"3"|"4"|"5"|"6"|"7"|"8"|"9";
 ## Parser
 ![StateDiagram](./statediagram.jpeg "State diagram for parser")
 <br>Steps: 
-- Merge Number Creation in one step -> delete leading zero
-- Combine repetitive progressions from diagram in one.
-- State Design Pattern
-- Implementation
+- Formal grammar definition
+- Tokenize imports
+- Parse tokens -> Parse Tree
+- Syntax Check ? 
 ## Graph
 
 #Task 2 - Nikolaus puzzle

@@ -1,17 +1,23 @@
 package parser;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
  * @author Janik Mayr on 01.12.2018
  */
 public class GraphParseResult {
-    List<ParsedVertex> vertices;
-    List<ParsedEdge> parsedEdges;
+    private List<ParsedVertex> vertices;
+    private List<ParsedEdge> parsedEdges;
 
     public GraphParseResult(List<ParsedVertex> vertices, List<ParsedEdge> parsedEdges) {
         this.vertices = vertices;
         this.parsedEdges = parsedEdges;
+    }
+
+    public GraphParseResult() {
+        vertices = new LinkedList<>();
+        parsedEdges = new LinkedList<>();
     }
 
     public List<ParsedVertex> getVertices() {
