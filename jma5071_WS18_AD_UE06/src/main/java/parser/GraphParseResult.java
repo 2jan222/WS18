@@ -35,4 +35,12 @@ public class GraphParseResult {
     public void setParsedEdges(List<ParsedEdge> parsedEdges) {
         this.parsedEdges = parsedEdges;
     }
+
+    @Override
+    public String toString() {
+        return "GraphParseResult{" +
+                "vertices=" + vertices +
+                ", parsedEdges=" + parsedEdges +
+                '}';
+    }
 }

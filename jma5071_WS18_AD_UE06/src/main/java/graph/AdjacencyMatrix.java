@@ -28,9 +28,7 @@ public class AdjacencyMatrix implements AdjacencyStructure {
             size = size << 1 ;
             Integer[][] resize = new Integer[size][size];
             for (int i = 0; i < matrix.length; i++) {
-                for (int j = 0; j < matrix[0].length; j++) {
-                    resize[i][j] = matrix[i][j];
-                }
+                System.arraycopy(matrix[i], 0, resize[i], 0, matrix[0].length);
             }
             matrix = resize;
         } catch (OutOfMemoryError e) {

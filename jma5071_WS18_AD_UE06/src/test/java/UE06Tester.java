@@ -14,7 +14,6 @@ public class UE06Tester {
 
     @Test
     @DisplayName("Tests for Lexer")
-
     public void lexerTest() {
         Lexer lexer = new Lexer();
         String text = "V={454,5\t} ;E={(2,2,-2),(3,2,3)};;";
