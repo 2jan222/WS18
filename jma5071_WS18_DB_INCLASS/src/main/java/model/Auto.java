@@ -1,20 +1,22 @@
 package model;
 
+import jdbc.PojoBase;
+
 import java.util.LinkedList;
 import java.util.List;
 
 /**
  * @author Janik Mayr on 29.11.2018
  */
-public class Auto {
+public class Auto extends PojoBase {
     private String kennzeichen;
     private int km_stand;
-    private Autofarbe autofarbe;
+    private String autofarbe;
     private Vermietstation vermietstation;
     private Autotyp typ_bezeichnung;
     private List<Extraausstattung> extraausstattungen = new LinkedList<>();
 
-    public Auto(String kennzeichen, int km_stand, Autofarbe autofarbe, Vermietstation vermietstation, Autotyp typ_bezeichnung, Extraausstattung... extraausstattung) {
+    public Auto(String kennzeichen, int km_stand, String autofarbe, Vermietstation vermietstation, Autotyp typ_bezeichnung, Extraausstattung... extraausstattung) {
         this.kennzeichen = kennzeichen;
         this.km_stand = km_stand;
         this.autofarbe = autofarbe;
@@ -38,11 +40,11 @@ public class Auto {
         this.km_stand = km_stand;
     }
 
-    public Autofarbe getAutofarbe() {
+    public String getAutofarbe() {
         return autofarbe;
     }
 
-    public void setAutofarbe(Autofarbe autofarbe) {
+    public void setAutofarbe(String autofarbe) {
         this.autofarbe = autofarbe;
     }
 
@@ -62,7 +64,16 @@ public class Auto {
         this.typ_bezeichnung = typ_bezeichnung;
     }
 
-    private enum Autofarbe {
-        def;
+
+    @Override
+    public String toString() {
+        return "Auto{" +
+                "kennzeichen='" + kennzeichen + '\'' +
+                ", km_stand=" + km_stand +
+                ", autofarbe=" + autofarbe +
+                ", vermietstation=" + vermietstation +
+                ", typ_bezeichnung=" + typ_bezeichnung +
+                ", extraausstattungen=" + extraausstattungen +
+                '}';
     }
 }

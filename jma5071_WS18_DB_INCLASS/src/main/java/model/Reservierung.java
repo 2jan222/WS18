@@ -1,11 +1,13 @@
 package model;
 
+import jdbc.PojoBase;
+
 import java.time.LocalDateTime;
 
 /**
  * @author Janik Mayr on 29.11.2018
  */
-public class Reservierung {
+public class Reservierung extends PojoBase {
     private Vermietstation vermietstation; //P
     private String reservierungs_nr; //P
     private LocalDateTime anfangsdatum;
@@ -59,5 +61,17 @@ public class Reservierung {
 
     public void setAutokategorie(Autokategorie autokategorie) {
         this.autokategorie = autokategorie;
+    }
+
+    @Override
+    public String toString() {
+        return "Reservierung{" +
+                "vermietstation=" + vermietstation +
+                ", reservierungs_nr='" + reservierungs_nr + '\'' +
+                ", anfangsdatum=" + anfangsdatum +
+                ", enddatum=" + enddatum +
+                ", kunde=" + kunde +
+                ", autokategorie=" + autokategorie +
+                '}';
     }
 }

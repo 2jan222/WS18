@@ -57,4 +57,15 @@ public class Vermietstation {
     public void setStadt(Stadt stadt) {
         this.stadt = stadt;
     }
+
+    @Override
+    public String toString() {
+        return "Vermietstation{" +
+                "stadtcode='" + stadtcode + '\'' +
+                ", stations_name='" + stations_name + '\'' +
+                ", adresse='" + adresse + '\'' +
+                ", mitarbeiter_anzahl=" + mitarbeiter_anzahl +
+                ", stadt=" + stadt +
+                '}';
+    }
 }

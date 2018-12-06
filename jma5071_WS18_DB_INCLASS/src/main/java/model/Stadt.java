@@ -37,4 +37,13 @@ public class Stadt {
     public void setEinwohner_anzahl(int einwohner_anzahl) {
         this.einwohner_anzahl = einwohner_anzahl;
     }
+
+    @Override
+    public String toString() {
+        return "Stadt{" +
+                "stadtcode='" + stadtcode + '\'' +
+                ", name='" + name + '\'' +
+                ", einwohner_anzahl=" + einwohner_anzahl +
+                '}';
+    }
 }

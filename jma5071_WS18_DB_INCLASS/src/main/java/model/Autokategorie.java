@@ -1,9 +1,11 @@
 package model;
 
+import jdbc.PojoBase;
+
 /**
  * @author Janik Mayr on 29.11.2018
  */
-public class Autokategorie {
+public class Autokategorie extends PojoBase {
     private String kategorie_bezeichnung;
     private double grundtarif;
     private double km_preis;
@@ -36,5 +38,14 @@ public class Autokategorie {
 
     public void setKm_preis(double km_preis) {
         this.km_preis = km_preis;
+    }
+
+    @Override
+    public String toString() {
+        return "Autokategorie{" +
+                "kategorie_bezeichnung='" + kategorie_bezeichnung + '\'' +
+                ", grundtarif=" + grundtarif +
+                ", km_preis=" + km_preis +
+                '}';
     }
 }

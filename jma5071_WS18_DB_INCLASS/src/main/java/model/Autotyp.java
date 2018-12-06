@@ -1,9 +1,11 @@
 package model;
 
+import jdbc.PojoBase;
+
 /**
  * @author Janik Mayr on 29.11.2018
  */
-public class Autotyp {
+public class Autotyp extends PojoBase {
     private String typ_bezeichnung; //P
     private double benzinverbrauch;
     private String kategorie_bezeichnung;
@@ -39,5 +41,15 @@ public class Autotyp {
 
     public void setStadt(Stadt stadt) {
         this.stadt = stadt;
+    }
+
+    @Override
+    public String toString() {
+        return "Autotyp{" +
+                "typ_bezeichnung='" + typ_bezeichnung + '\'' +
+                ", benzinverbrauch=" + benzinverbrauch +
+                ", kategorie_bezeichnung='" + kategorie_bezeichnung + '\'' +
+                ", stadt=" + stadt +
+                '}';
     }
 }

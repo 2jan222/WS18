@@ -1,11 +1,13 @@
 package model;
 
+import jdbc.PojoBase;
+
 import java.util.List;
 
 /**
  * @author Janik Mayr on 29.11.2018
  */
-public class Extraausstattung {
+public class Extraausstattung extends PojoBase {
     private Autotyp typ_bezeichnung;
     private String extras_bezeichnung;
     private double aufpreis;
@@ -47,5 +49,15 @@ public class Extraausstattung {
 
     public void setAufpreis(double aufpreis) {
         this.aufpreis = aufpreis;
+    }
+
+    @Override
+    public String toString() {
+        return "Extraausstattung{" +
+                "typ_bezeichnung=" + typ_bezeichnung +
+                ", extras_bezeichnung='" + extras_bezeichnung + '\'' +
+                ", aufpreis=" + aufpreis +
+                ", autosMitAusstattung=" + autosMitAusstattung +
+                '}';
     }
 }

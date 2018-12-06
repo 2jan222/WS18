@@ -1,9 +1,11 @@
 package model;
 
+import jdbc.PojoBase;
+
 /**
  * @author Janik Mayr on 29.11.2018
  */
-public class Kunde {
+public class Kunde extends PojoBase {
     private String fuehrerschein_nummer; //P
     private String kunde_name;
     private String anschrift;
@@ -36,5 +38,14 @@ public class Kunde {
 
     public void setAnschrift(String anschrift) {
         this.anschrift = anschrift;
+    }
+
+    @Override
+    public String toString() {
+        return "Kunde{" +
+                "fuehrerschein_nummer='" + fuehrerschein_nummer + '\'' +
+                ", kunde_name='" + kunde_name + '\'' +
+                ", anschrift='" + anschrift + '\'' +
+                '}';
     }
 }

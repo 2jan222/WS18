@@ -1,9 +1,11 @@
 package model;
 
+import jdbc.PojoBase;
+
 /**
  * @author Janik Mayr on 29.11.2018
  */
-public class Mietvertrag {
+public class Mietvertrag extends PojoBase {
     private Reservierung reservierung;
     private int km_stand_uebergabe;
     private int km_stand_rueckgabe;
@@ -46,5 +48,15 @@ public class Mietvertrag {
 
     public void setAuto(Auto auto) {
         this.auto = auto;
+    }
+
+    @Override
+    public String toString() {
+        return "Mietvertrag{" +
+                "reservierung=" + reservierung +
+                ", km_stand_uebergabe=" + km_stand_uebergabe +
+                ", km_stand_rueckgabe=" + km_stand_rueckgabe +
+                ", auto=" + auto +
+                '}';
     }
 }
